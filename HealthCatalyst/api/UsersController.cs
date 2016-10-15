@@ -13,6 +13,13 @@ namespace HealthCatalyst.api
 	[AllowAnonymous]
 	public class UsersController : ApiController
     {
+		/// <summary>
+		/// Reads the database for users where the name contains any of the keywords entered.
+		/// If longWait is true, it will pause for 3 seconds before returning the data
+		/// </summary>
+		/// <param name="searchString">A space separated list of strings to search for</param>
+		/// <param name="longWait">If true, will wait 3 seconds before returning.  Else return as soon as the data is read.</param>
+		/// <returns>A list of users, or an empty list if none are found.</returns>
 		[HttpGet]
 		public async Task<List<User>> GetFilteredUsers([FromUri]string searchString, bool longWait)
 		{
@@ -27,8 +34,10 @@ namespace HealthCatalyst.api
 
 			using (var ctx = new Context())
 			{
+				// Get a queryable object
 				var usersQuery = ctx.Users.AsQueryable();
 
+				// Iterate over each search term and add the contains to the tree
 				foreach (var searchTerm in searchTerms)
 				{
 					usersQuery = usersQuery.Where(x =>
@@ -36,6 +45,7 @@ namespace HealthCatalyst.api
 					);
 				}
 
+				// Return the list of users filtered by the search terms
 				var users = await usersQuery.ToListAsync();
 
 				return users;
@@ -46,7 +56,7 @@ namespace HealthCatalyst.api
 		/// Adds a new user to the database
 		/// </summary>
 		/// <param name="userModel">The user information to add</param>
-		/// <returns>A user model with the Id populated</returns>
+		/// <returns>A user model with the id field populated</returns>
 		[HttpPost]
 		public async Task<User> AddNewUser(User userModel)
 		{

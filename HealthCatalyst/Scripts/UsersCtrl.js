@@ -3,10 +3,11 @@
 app.controller("UsersCtrl", ['$scope', '$timeout', 'userSvc', function ($scope, $timeout, userSvc) {
 	$scope.newUserModel = {};
 
+	// Adds a new user to the database 
 	$scope.addNewUser = function () {
 		userSvc.addNewUser($scope.newUserModel)
 			.then(function success(userModel) {
-				console.log("new id is " + userModel.Id);
+				console.log("new id is " + userModel.id);
 
 				$scope.clearUser();
 			});
@@ -21,6 +22,7 @@ app.controller("UsersCtrl", ['$scope', '$timeout', 'userSvc', function ($scope, 
 		$scope.userForm.$setUntouched();
 	}
 
+	// Watch for the search string to change and call the server to get the search info
 	$scope.$watch('userSearchString', function () {
 		if (!$scope.userSearchString) {
 			$scope.searching = false;
@@ -28,6 +30,7 @@ app.controller("UsersCtrl", ['$scope', '$timeout', 'userSvc', function ($scope, 
 			return;
 		}
 
+		// Default to empty result set
 		$scope.searchResults = [];
 
 		// It's annoying to see the Loading... spinner every time we search.

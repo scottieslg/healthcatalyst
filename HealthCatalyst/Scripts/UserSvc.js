@@ -1,8 +1,10 @@
 ﻿"use strict";
 
 app.factory("userSvc", ['$http', '$q', function ($http, $q) {
+	// Used to determine if we should wait for a long pause before returning data
 	var longWaitCount = 0;
 
+	// Adds a new user to the database
 	function addNewUser(userModel) {
 		var deferred = $q.defer();
 
@@ -19,6 +21,7 @@ app.factory("userSvc", ['$http', '$q', function ($http, $q) {
 		return deferred.promise;
 	}
 
+	// Grabs a list of users filtered by the search string
 	function getFilteredUsers(searchString) {
 		var longWait = ++longWaitCount % 3 === 0;
 		var params = {
