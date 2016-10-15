@@ -4,12 +4,41 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Health Catalyst Test App</title>
+	<link href="~/Content/font-awesome.css" rel="stylesheet" />
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="~/Content/Site.css" rel="stylesheet" />
+
 </head>
-<body>
+<body ng-cloak ng-app="healthCatalystApp" ng-strict-di>
+
+
+
+	<div class="page-header" style="margin-top: 10px;">
+		<div class="row">
+			<div class="col-xs-11 col-xs-offset-1">
+				<div class="logo"></div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container body-content">
 		@RenderBody()
-		<hr />
 	</div>
+
+	<script src="/node_modules/angular/angular.min.js"></script>
+	<script src="/node_modules/angular-messages/angular-messages.min.js"></script>
+	<script src="~/Scripts/ngFile.js"></script>
+
+	<script>
+		var app = angular.module("healthCatalystApp", [
+			'ngMessages',
+			'ngFile'
+		]);
+	</script>
+
+	<script src="~/Scripts/UsersCtrl.js"></script>
+	<script src="~/Scripts/UserSvc.js"></script>
 
 	@RenderSection("scripts", required: false)
 </body>

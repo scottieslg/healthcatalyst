@@ -1,1 +1,111 @@
-﻿
+﻿<ng-form name="userForm" ng-controller="UsersCtrl">
+	<div class="row">
+		<!-- Left side that will house the user search and display -->
+		<div class="col-xs-4">
+			<div class='input-group'>
+
+				<span class='input-group-addon'><i class='fa fa-search'></i></span>
+				<input type='text' class='form-control' autofocus ng-model='userSearchString' placeholder='Find User...' ng-model-options='{ debounce: 300 }' />
+
+			</div>
+
+			<div ng-if="userSearchString && searching">
+				<span class="loadingSpinner"></span>&nbsp;Loading...
+			</div>
+
+			<div ng-if="userSearchString && !searching && !searchResults">
+				No results
+			</div>
+
+			<div ng-if="userSearchString && !searching && searchResults">
+
+			</div>
+		</div>
+
+		<!-- Right side that will house the new user form -->
+		<div class="col-xs-8">
+			<h3 style="margin-top: 0;">Add a new user</h3>
+			<div class="row form-group">
+
+				<div class="col-xs-12">
+					<label>Name:</label>
+					<input type="text" class="form-control" name="name" id="name" ng-model="newUserModel.name" required />
+					<div ng-messages="userForm.name.$error" class="error-messages" ng-show="name.$submitted || userForm.name.$touched">
+						<div ng-message="required">Name is required</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-xs-12">
+					<label>Address:</label>
+					<input type="text" class="form-control" name="address" ng-model="newUserModel.address" required />
+					<div ng-messages="userForm.address.$error" class="error-messages" ng-show="address.$submitted || userForm.address.$touched">
+						<div ng-message="required">Address is required</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-xs-7">
+					<label>City:</label>
+					<input type="text" class="form-control" name="city" ng-model="newUserModel.city" required />
+					<div ng-messages="userForm.city.$error" class="error-messages" ng-show="city.$submitted || userForm.city.$touched">
+						<div ng-message="required">City is required</div>
+					</div>
+				</div>
+
+				<div class="col-xs-2">
+					<label>City:</label>
+					<input type="text" class="form-control" name="state" ng-model="newUserModel.state" required />
+					<div ng-messages="userForm.state.$error" class="error-messages" ng-show="state.$submitted || userForm.state.$touched">
+						<div ng-message="required">State is required</div>
+					</div>
+				</div>
+
+				<div class="col-xs-3">
+					<label>Postal Code:</label>
+					<input type="text" class="form-control" name="postalCode" ng-model="newUserModel.postalCode" required />
+					<div ng-messages="userForm.postalCode.$error" class="error-messages" ng-show="postalCode.$submitted || userForm.postalCode.$touched">
+						<div ng-message="required">Postal Code is required</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-xs-2">
+					<label>Age:</label>
+					<input type="number" class="form-control" step="any" ng-model="newUserModel.age" name="age" required />
+					<div ng-messages="userForm.age.$error" class="error-messages" ng-show="age.$submitted || userForm.age.$touched">
+						<div ng-message="required">Age is required</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-xs-12">
+					<label>Interests:</label>
+					<textarea class="form-control" style="min-height: 100px;" name="interests" ng-model="newUserModel.interests"></textarea>
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div ng-show="!newUserModel.photo" class="col-xs-12">
+					<label>Upload Photo:</label>
+					<input class="form-control" type="file" ng-file ng-model="userPhoto" />
+				</div>
+				<div ng-if="newUserModel.photo" class="col-xs-12">
+					<img ng-src="{{newUserModel.photo}}" />
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-xs-12 text-center">
+					<button class="btn btn-primary" ng-disabled="userForm.$valid === false" ng-click="addNewUser()"><span class="fa fa-user-plus"></span>&nbsp;Add User</button>
+					<button class="btn btn-primary" ng-click="clearUser()"><span class="fa fa-ban"></span>&nbsp;Clear User</button>
+				</div>
+			</div>
+		</div>		
+		{{newUserModel}}
+	</div>
+</ng-form>

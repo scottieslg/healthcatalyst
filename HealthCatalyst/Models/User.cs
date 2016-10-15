@@ -16,7 +16,7 @@ namespace HealthCatalyst.Models
 		public string PostalCode { get; set; }
 		public int Age { get; set; }
 		public string Interests { get; set; }
-		public byte[] Photo { get; set; }
+		public string Photo { get; set; }
 
 	}
 }
