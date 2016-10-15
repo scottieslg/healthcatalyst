@@ -11,16 +11,6 @@ namespace HealthCatalyst.Controllers
 	{
 		public ActionResult Index()
 		{
-			using (var ctx = new Context())
-			{
-				var user = new User()
-				{
-					Id = 1
-				};
-
-				ctx.Users.Add(user);
-				ctx.SaveChanges();
-			}
 			return View();
 		}
 	}

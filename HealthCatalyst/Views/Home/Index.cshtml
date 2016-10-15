@@ -2,6 +2,7 @@
 	<div class="row">
 		<!-- Left side that will house the user search and display -->
 		<div class="col-xs-4">
+			(Every third search will take 3 seconds)
 			<div class='input-group'>
 
 				<span class='input-group-addon'><i class='fa fa-search'></i></span>
@@ -10,7 +11,7 @@
 			</div>
 
 			<div ng-if="userSearchString && searching">
-				<span class="loadingSpinner"></span>&nbsp;Loading...
+				<div class="loadingSpinner"></div>&nbsp;Loading...
 			</div>
 
 			<div ng-if="userSearchString && !searching && !searchResults">
@@ -18,7 +19,28 @@
 			</div>
 
 			<div ng-if="userSearchString && !searching && searchResults">
+				<ul class="list-group">
+					<li ng-repeat="user in searchResults" class="list-group-item">
+						<div class="row">
+							<div class="col-xs-5">
+								<img ng-src="{{user.photo}}" style="max-width: 100%;" />
+							</div>
+							<div class="col-xs-7">
+								{{user.name}}<br />
+								{{user.address}}<br />
+								{{user.city}}, {{state}}  {{postalCode}}<br />
+								{{user.age}}
+							</div>
+						</div>
 
+						<div class="row">
+							<div class="col-xs-12">
+								{{user.interests}}
+							</div>
+						</div>
+					</li>
+
+				</ul>
 			</div>
 		</div>
 
@@ -106,6 +128,5 @@
 				</div>
 			</div>
 		</div>		
-		{{newUserModel}}
 	</div>
 </ng-form>
